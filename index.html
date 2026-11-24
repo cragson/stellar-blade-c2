@@ -1,0 +1,169 @@
+<!doctype html>
+<!--
+  Stellar Blade: C2
+  Copyright (C) 2026 cragson
+  SPDX-License-Identifier: AGPL-3.0-or-later
+  Source code: https://github.com/cragson/stellar-blade-c2
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="dark light">
+<title>Stellar Blade: C2</title>
+<meta name="description" content="Stellar Blade: C2, a command center for your Stellar Blade PC save: items, outfits, upgrades, skills, camps, quests, story progress and the developers' own console commands. Runs entirely in your browser.">
+<link rel="icon" href="favicon.svg?v=6ebc1997f1" type="image/svg+xml">
+<link rel="preload" href="fonts/saira.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="app.css?v=3241ab55fe">
+</head>
+<body>
+<div class="app" id="app" data-state="empty">
+
+  <aside class="sidebar" id="sidebar" aria-label="Editor">
+    <div class="brand">
+      <img src="favicon.svg?v=6ebc1997f1" alt="" width="30" height="30">
+      <div class="brand-name"><span>Stellar Blade: <b>C2</b></span></div>
+      <button class="icon-btn menu-close" id="menuClose" aria-label="Close menu"><span data-icon="x"></span></button>
+    </div>
+
+    <div class="file-box">
+      <button class="btn btn-primary btn-block" id="openBtn"><span data-icon="upload"></span> Open save</button>
+      <div class="file-card" id="fileCard" hidden>
+        <span data-icon="file" class="file-ic"></span>
+        <div class="file-text"><b id="fileName"></b><small id="fileMeta"></small></div>
+        <button class="icon-btn" id="reopenBtn" data-tip="Open a different save" aria-label="Open a different save"><span data-icon="upload"></span></button>
+      </div>
+      <input type="file" id="fileInput" accept=".sav" hidden>
+    </div>
+
+    <nav class="nav" id="nav" aria-label="Pages"></nav>
+
+    <section class="changes" id="changes" aria-label="Changes">
+      <ul class="change-list" id="changeList"></ul>
+      <div class="changes-foot">
+        <button class="icon-btn" id="discardBtn" data-tip="Discard all changes" aria-label="Discard all changes" disabled><span data-icon="trash"></span></button>
+        <button class="btn btn-download" id="downloadBtn" disabled><span data-icon="download"></span><span id="downloadLabel">Download save</span><span class="badge" id="changeCount">0</span></button>
+        <button class="icon-btn" id="copyBtn" data-tip="Download a copy instead" aria-label="Download a copy instead" hidden><span data-icon="copy"></span></button>
+      </div>
+    </section>
+
+    <p class="made-by">made with <span class="heart" role="img" aria-label="love">&#9829;</span> by <a href="https://github.com/cragson" target="_blank" rel="noopener noreferrer">cragson</a></p>
+    <nav class="socials" aria-label="cragson elsewhere">
+      <a href="https://x.com/cracksohn" target="_blank" rel="noopener noreferrer" data-tip="cragson on X" aria-label="cragson on X">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <a href="https://www.youtube.com/@cragson" target="_blank" rel="noopener noreferrer" data-tip="cragson on YouTube" aria-label="cragson on YouTube">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      </a>
+      <a href="https://github.com/cragson" target="_blank" rel="noopener noreferrer" data-tip="cragson on GitHub" aria-label="cragson on GitHub">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3.315 1.23-.345 2.85-.495 4.5-.495 1.65 0 3.27.15 4.5.495 2.295-.637 3.3-.315 3.3-.315.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      </a>
+    </nav>
+  </aside>
+
+  <div class="scrim" id="scrim" hidden></div>
+
+  <main class="main" id="main">
+    <header class="topbar">
+      <button class="icon-btn menu-open" id="menuOpen" aria-label="Open menu"><span data-icon="menu"></span></button>
+      <h1 id="pageTitle">Open your save</h1>
+      <label class="search" id="searchWrap" hidden>
+        <span data-icon="search"></span>
+        <input type="search" id="search" placeholder="Search, or type a command" aria-label="Search items and pages, or type a command" autocomplete="off" spellcheck="false">
+        <kbd class="search-key" aria-hidden="true">/</kbd>
+      </label>
+    </header>
+
+    <!-- before a save is opened -->
+    <section class="page empty-page" id="pageEmpty">
+      <label class="drop" id="drop" for="fileInput">
+        <span class="drop-art" aria-hidden="true"><span data-icon="file"></span><span class="drop-ext">.sav</span></span>
+        <strong class="drop-name">StellarBladeSave00.sav</strong>
+        <span class="drop-cta"><span data-icon="upload"></span><span id="dropHint">Drop it here or click to open</span></span>
+        <span class="drop-safe"><span data-icon="lock"></span>Stays on your device</span>
+      </label>
+      <p class="error" id="openError" role="alert" hidden></p>
+      <div id="folderStart"></div>
+
+      <ol class="flow" aria-label="How it works">
+        <li><span data-icon="power"></span><b>Quit the game</b></li>
+        <li><span data-icon="copy"></span><b>Back up the save</b></li>
+        <li><span data-icon="sliders"></span><b>Edit it here</b></li>
+        <li><span data-icon="download"></span><b>Replace the file</b></li>
+      </ol>
+
+      <div class="paths" aria-label="Where the save is">
+        <div class="path">
+          <span class="os">Windows</span>
+          <code id="pathWin">%LOCALAPPDATA%\SB\Saved\SaveGames\</code>
+          <button class="icon-btn" data-copy="pathWin" data-tip="Copy the folder" aria-label="Copy the Windows folder"><span data-icon="copy"></span></button>
+        </div>
+        <div class="path">
+          <span class="os">Steam Deck, Linux</span>
+          <code id="pathLinux">~/.local/share/Steam/steamapps/compatdata/3489700/pfx/drive_c/users/steamuser/AppData/Local/SB/Saved/SaveGames/</code>
+          <button class="icon-btn" data-copy="pathLinux" data-tip="Copy the folder" aria-label="Copy the Steam Deck and Linux folder"><span data-icon="copy"></span></button>
+        </div>
+        <p class="path-note" tabindex="0" data-tip="PlayStation saves are encrypted and can't be edited."><span data-icon="info"></span>PC (Steam) saves, in the numbered folder</p>
+      </div>
+    </section>
+
+    <!-- every page once a save is open: filled by app.js and pages.js -->
+    <section class="page" id="page" hidden></section>
+
+    <footer class="credits">
+      Stellar Blade: C2 by <a href="https://github.com/cragson">cragson</a>.
+      Free software under the <a href="https://github.com/cragson/stellar-blade-c2/blob/main/LICENSE">GNU AGPL 3.0</a>, <a href="https://github.com/cragson/stellar-blade-c2">source code on GitHub</a>.
+      A fan project, not affiliated with SHIFT UP or Sony Interactive Entertainment.
+    </footer>
+  </main>
+</div>
+
+<!-- amount editor for stackable items -->
+<div class="inspector" id="inspector" role="dialog" aria-label="Change the amount" hidden></div>
+
+<!-- after download -->
+<dialog class="dialog" id="installDialog" aria-labelledby="installTitle">
+  <form method="dialog" class="dialog-inner">
+    <div class="dialog-head">
+      <h2 id="installTitle"><span data-icon="check"></span>Save downloaded</h2>
+      <button class="icon-btn" value="cancel" aria-label="Close"><span data-icon="x"></span></button>
+    </div>
+    <ol class="flow flow-small">
+      <li><span data-icon="power"></span><b>Quit the game</b></li>
+      <li><span data-icon="copy"></span><b>Keep your old file</b></li>
+      <li><span data-icon="file"></span><b>Put the new one in its place</b></li>
+      <li><span data-icon="play"></span><b>Load it in game</b></li>
+    </ol>
+    <p class="note"><span data-icon="cloud"></span>Steam Cloud conflict? Keep the local file.</p>
+    <div class="dialog-actions"><button class="btn btn-primary" value="ok">Done</button></div>
+  </form>
+</dialog>
+
+<div class="mobile-bar" id="mobileBar" hidden>
+  <button class="btn btn-download" id="mobileDownload"><span data-icon="download"></span><span>Download save</span><span class="badge on" id="mobileCount">0</span></button>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="gvas.js?v=b881f0e33f"></script>
+<script src="model.js?v=cee58fad1a"></script>
+<script src="items.js?v=47f2192a47"></script>
+<script src="gamedata.js?v=5d9ba9bdbc"></script>
+<script src="progress.js?v=266622b90f"></script>
+<script src="chapters.js?v=a78f133358"></script>
+<script src="chapter.js?v=5781520cb0"></script>
+<script src="ui.js?v=fd370b8217"></script>
+<script src="app.js?v=45e8c8f99f"></script>
+<script src="pages.js?v=ab5797cf4c"></script>
+<script src="commands.js?v=c57c90f5aa"></script>
+<script src="diff.js?v=675b486819"></script>
+<script src="saves.js?v=54cc276970"></script>
+<script src="map.js?v=fa2b884d14"></script>
+<script src="codex.js?v=42c21783ee"></script>
+<script src="planner.js?v=255ae4fd27"></script>
+<script src="dialogue-ui.js?v=56c6a034b0"></script>
+<script src="ai-ui.js?v=0f338ca2e9"></script>
+</body>
+</html>

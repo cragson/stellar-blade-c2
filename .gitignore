@@ -1,0 +1,24 @@
+# Never commit save files: they are personal and can be large.
+*.sav
+*.sav.bak
+Backup/
+
+# Test output
+e2e-out/
+node_modules/
+
+# Editors and OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Icon packs contain the game's artwork: never commit them
+StellarBladeIcons*.json
+*.sbicons
+tools/icon-pack/oodec/target/
+
+# Python caches
+__pycache__/
+*.pyc
