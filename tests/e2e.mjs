@@ -16,7 +16,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const require = createRequire(import.meta.url);
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const ROOT = path.join(REPO, "docs"); // the web app (served by GitHub Pages from /docs)
 const G = require(path.join(ROOT, "gvas.js"));
 const { Inventory } = require(path.join(ROOT, "model.js"));
 const ITEMS = require(path.join(ROOT, "items.js"));
@@ -30,7 +31,7 @@ const args = Object.fromEntries(process.argv.slice(2).reduce((acc, a, i, all) =>
   return acc;
 }, []));
 if (!args.save) { console.error("usage: node tests/e2e.mjs --save StellarBladeSave00.sav [--out dir]"); process.exit(2); }
-const OUT = path.resolve(args.out || path.join(ROOT, "e2e-out"));
+const OUT = path.resolve(args.out || path.join(REPO, "e2e-out"));
 const DL = path.join(OUT, "downloads");
 await rm(OUT, { recursive: true, force: true });
 await mkdir(DL, { recursive: true });

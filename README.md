@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="favicon.svg" width="76" height="76" alt="">
+<img src="docs/favicon.svg" width="76" height="76" alt="">
 
 # Stellar Blade: C2
 
@@ -11,9 +11,13 @@ even where you are in the story, or type the developers' own console commands. R
 
 Nothing to install. Your save never leaves your computer. Free and open source.
 
-<a href="https://youtu.be/os02PpE33Ig"><img src="https://img.youtube.com/vi/os02PpE33Ig/maxresdefault.jpg" width="720" alt="Watch the video: Stellar Blade: C2, the map, the codex and the save editor in under three minutes"></a>
+<br>
 
-**[▶ Watch the 2½-minute tour on YouTube](https://youtu.be/os02PpE33Ig)**
+## ▶ See it in action
+
+<a href="https://youtu.be/os02PpE33Ig"><img src="https://img.youtube.com/vi/os02PpE33Ig/maxresdefault.jpg" width="720" alt="Watch the video on YouTube: Stellar Blade: C2, the map, the codex and the save editor in two and a half minutes"></a>
+
+<a href="https://youtu.be/os02PpE33Ig"><img src="https://img.shields.io/badge/Watch_the_video-2%C2%BD_minutes_on_YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" height="40" alt="Watch the video: 2½ minutes on YouTube"></a>
 
 </div>
 
@@ -356,7 +360,7 @@ tables (item, camp, quest, skill, album, trophy, shop, music and upgrade tables)
 No build step and no dependencies: it's plain HTML, CSS and JavaScript.
 
 ```sh
-python3 -m http.server     # then open http://localhost:8000
+python3 -m http.server -d docs    # the app is in docs/; then open http://localhost:8000
 node --test tests/unit.test.js
 SB_SAVE=/path/to/StellarBladeSave00.sav node --test tests/unit.test.js   # also test a real save
 node tests/e2e.mjs --save /path/to/StellarBladeSave00.sav               # full browser test (needs Chromium)
@@ -364,10 +368,6 @@ node tests/e2e.mjs --save /path/to/StellarBladeSave00.sav               # full b
 
 The page has a strict Content-Security-Policy, so keep all scripts and styles in separate files
 (no inline `<script>` or `style=`), and build the interface with DOM calls, never `innerHTML`.
-
-**Publishing on GitHub Pages:** in the repository go to **Settings → Pages → Build and deployment**, set
-**Source** to **Deploy from a branch** and pick `main` with the folder the site is in (`/ (root)` for this
-layout). The site is plain static files, so there's no build step. Run the tests before you push.
 
 </details>
 

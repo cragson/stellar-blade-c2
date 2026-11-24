@@ -8,13 +8,13 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
-const G = require("../gvas.js");
-const { Inventory, applyChanges, summary } = require("../model.js");
-const ITEMS = require("../items.js");
-const GAME = require("../gamedata.js");
-const { Progress } = require("../progress.js");
-const CHAPTERS = require("../chapters.js");
-const CH = require("../chapter.js");
+const G = require("../docs/gvas.js");
+const { Inventory, applyChanges, summary } = require("../docs/model.js");
+const ITEMS = require("../docs/items.js");
+const GAME = require("../docs/gamedata.js");
+const { Progress } = require("../docs/progress.js");
+const CHAPTERS = require("../docs/chapters.js");
+const CH = require("../docs/chapter.js");
 
 // ------------------------------------------------------------------ synthetic save
 const zeros = (n) => new Uint8Array(n);
@@ -492,7 +492,7 @@ test("side quest steps: start a quest at its 2nd step, and replay a finished one
 });
 
 test("compare: a changed amount, a new item and a learned skill show up as such, nothing else", () => {
-  const { diffSaves } = require("../diff.js");
+  const { diffSaves } = require("../docs/diff.js");
   const before = G.parse(syntheticSave());
   const after = G.parse(applyChanges(syntheticSave(), ITEMS, { items: { BetaCrystal: 5, BodyCore: 2 } }, null).bytes);
   const d = diffSaves(before, after);

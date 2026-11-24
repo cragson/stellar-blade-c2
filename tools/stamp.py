@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stamp every local file link in index.html (and the lazily loaded data files) with a fingerprint of the file.
+"""Stamp every local file link in docs/index.html (and the lazily loaded data files) with a fingerprint of the file.
 
   python3 tools/stamp.py          # after changing any .js/.css/.svg file
 
@@ -11,7 +11,7 @@ Copyright (C) 2026 cragson - SPDX-License-Identifier: AGPL-3.0-or-later
 """
 import hashlib, pathlib, re, sys
 
-ROOT = pathlib.Path(__file__).resolve().parent.parent
+ROOT = pathlib.Path(__file__).resolve().parent.parent / "docs"  # the web app
 # files loaded later by a script tag a module adds: module -> files it loads
 LAZY = {"map.js": ["world.js"], "commands.js": ["intel.js"], "codex.js": ["codex-data.js"], "planner.js": ["builds.js"], "dialogue-ui.js": ["dialogue.js"], "ai-ui.js": ["ai.js"]}
 # the font is referenced from app.css without a stamp; preloading a stamped URL would download it twice
